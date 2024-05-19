@@ -42,11 +42,25 @@ def change_card(player_cards, card_index, deck):
 def card_change_handler(players_cards_dict):
     # ვკითხოთ თუ სურს შეცვლა და რომლის შეცვლა სურს
     for player_name in players_cards_dict:
-        is_change_need = input(f"{player_name} would you like to change card (y/N): ")
-        if is_change_need == "N":
+        while True:
+            is_change_need = input(f"{player_name} would you like to change card (y/n): ").lower()
+            if is_change_need in ("n", "y"):
+                break
+            print("Please enter 'y' or 'n'")
             continue
 
-        card_index = int(input(f"{player_name} which card index do you want to change? [0-4]: "))
-        players_cards_dict[player_name] = change_card(players_cards_dict[player_name], card_index, deck)
+        if is_change_need == "n":
+            break
+
+        while True:
+            card_index = int(input(f"{player_name} which card index do you want to change? [0-4]: "))
+            try:
+                players_cards_dict[player_name] = change_card(players_cards_dict[player_name], card_index, deck)
+                break
+            except IndexError:
+                print("You entered a wrong index!!! ")
+                continue
 
     return players_cards_dict
+
+
