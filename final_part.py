@@ -41,12 +41,25 @@ def generate_cards(player_names, num_cards):
 
     return players_cards_dict
 
-
+def get_unique_name(entered_names, message):
+    while True:
+        name = input(message)
+        if name in entered_names:
+            print("Enter a valid name. This name has already been used.")
+        else:
+            return name
+        
 def main():
     num_cards = 5
-    name_1 = input("Please input players number 1: ")
-    name_2 = input("Please input players number 2: ")
-    name_3 = input("Please input players number 3: ")
+    
+    entered_names = set()  
+
+    name_1 = get_unique_name(entered_names, "Please input players number 1: ")
+    entered_names.add(name_1)  
+    name_2 = get_unique_name(entered_names, "Please input players number 2: ")
+    entered_names.add(name_2)
+    name_3 = get_unique_name(entered_names, "Please input players number 3: ")
+    entered_names.add(name_3)
 
     players_cards_dict = generate_cards([name_1, name_2, name_3], num_cards)
 
